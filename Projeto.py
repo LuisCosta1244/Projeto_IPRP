@@ -75,3 +75,7 @@ def construir_bigramas(tokens):
             sub_dic[seguinte] = 1
     return big
 
+#2.2
+
+def probabilidade(modelo,a,b):
+    
