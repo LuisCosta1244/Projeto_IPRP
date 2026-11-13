@@ -2,6 +2,8 @@ def ler_linhas(nome):
     with open("nome.txt","r",encoding = "utf-8") as f:
         return f.read().split("\n")
 
+#1.1
+
 def extrair_corpo(linhas):
     inicio = 0
     fim = len(linhas)
@@ -21,6 +23,17 @@ def info(linhas):
             c+=len(l)
     return print(f"{i} linhas e {c} caractéres")
 
+#1.2
+
+
+
+
+
+
+
+
+#1.3
+
 def contar_frequencias(tokens):
     frequencias = {}
     for token in tokens:
@@ -29,6 +42,8 @@ def contar_frequencias(tokens):
         else:
             frequencias[token]=1
     return frequencias
+
+#1.4
 
 def top_n(freqs, n):
     copia = freqs.copy() #Não podemos alterar freqs de acordo com o enunciado
@@ -41,5 +56,8 @@ def top_n(freqs, n):
         res.append(max_i ,copia[max_i])
         del(copia[max_i])#juntar o tuplo à lista resultado e apagar o mais frequente para o caso de ser mais que 1 no n
     return res
+
+#início do 2
+#2.1
 
 
