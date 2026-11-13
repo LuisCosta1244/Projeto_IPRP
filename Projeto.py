@@ -29,6 +29,17 @@ def contar_frequencias(tokens):
         else:
             frequencias[token]=1
     return frequencias
-        
+
+def top_n(freqs, n):
+    copia = freqs.copy() #Não podemos alterar freqs de acordo com o enunciado
+    res = []
+    for _ in range(min(n ,len(freqs))):
+        max_i = None
+        for i in copia:
+            if max_i == 0 or copia[i] > copia[max_i]:
+                max_i = i
+        res.append(max_i ,copia[max_i])
+        del(copia[max_i])#juntar o tuplo à lista resultado e apagar o mais frequente para o caso de ser mais que 1 no n
+    return res
 
 
