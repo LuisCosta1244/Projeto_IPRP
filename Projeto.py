@@ -21,7 +21,14 @@ def info(linhas):
             c+=len(l)
     return print(f"{i} linhas e {c} caractéres")
 
-
+def contar_frequencias(tokens):
+    frequencias = {}
+    for token in tokens:
+        if token in frequencias:
+            frequencias[token]+=1
+        else:
+            frequencias[token]=1
+    return frequencias
         
 
 
