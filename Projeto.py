@@ -58,6 +58,20 @@ def top_n(freqs, n):
     return res
 
 #início do 2
+
 #2.1
 
+def construir_bigramas(tokens):
+    big={}
+    for i in range(len(tokens)-1):
+        palavra = tokens[i]
+        seguinte = tokens[i+1]
+        if palavra not in big:#se a palavra ainda n esta no principal criamos o sub
+            big[palavra] = {}
+        sub_dic = big[palavra]
+        if seguinte in sub_dic:#contar frequencia do token seguinte
+            sub_dic[seguinte] += 1
+        else:
+            sub_dic[seguinte] = 1
+    return big
 
