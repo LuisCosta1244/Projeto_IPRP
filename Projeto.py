@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 def ler_linhas(nome):
     with open("nome.txt","r",encoding = "utf-8") as f:
         return f.read().split("\n")
@@ -13,12 +12,30 @@ def extrair_corpo(linhas):
             fim = i
     return linhas[inicio:fim]
     
+fim = (".", "!", "?", ",")
+
 def tokenizar(texto):
-    texto = texto.lower()
+    texto = texto.lower() # em minúsculas
+    tokens = [] # lista onde vai guardar os tokens finais
+    palavra = "" # vai acumulando as letras da palavra atual
     for i in range(len(texto)):
-        if texto[i].isalpha() == True and (i == 0 | texto[i].isalpha() != True):
-        if i != 0 and (texto[i - 1].isalpha() and texto[i + 1]isalpha()):
-=======
+        if texto[i].isalpha(): # se o carácter atual pertencer ao alfabeto
+            palavra += texto[i] # acrescenta à palavra
+        elif texto[i] in ("-", "'") and palavra != "" and i + 1 < len(texto) and texto[i + 1].isalpha():
+            palavra += texto[i] # adiciona a letra à palavra quando o caracter atual é um hifen ou apostrofe e a palavra não está vazia (para garantir que estes simbolos estão no meio da palavra) e o próximo é uma letra
+        else: # qualquer outro carácter termina a palavra
+            if palavra != "": # limpa a variável e guarda na lista
+                tokens.append(palavra) # adiciona à lista
+                palavra = ""
+            if texto[i] in fim: # se for um ponto, virgula, exclamação, ...
+                if len(tokens) == 0 or tokens[-1] not in fim: # se estiver vazia ou se o último não for um sinal
+                    tokens.append(texto[i]) # adiciona à lista
+    if palavra != "": # se terminar numa letra, guarda a última palavra
+        tokens.append(palavra)
+    
+    return tokens
+                
+
 def ler_linhas(nome):
     with open("nome.txt","r",encoding = "utf-8") as f:
         return f.read().split("\n")
