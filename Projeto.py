@@ -1,30 +1,14 @@
 import random
 
 def ler_linhas(nome):
-    with open("nome.txt","r",encoding = "utf-8") as f:
+    with open(nome,"r",encoding = "utf-8") as f:
         return f.read().split("\n")
     
 def extrair_corpo(linhas):
     inicio = 0
     fim = len(linhas)
     for i , linha in enumerate(linhas):
-        if linha[0,12] == "*** START OF":
-            inicio = i + 1
-        if linha[:10] == "*** END OF":
-            fim = i
-    return linhas[inicio:fim]
-
-def ler_linhas(nome):
-    with open("nome.txt","r",encoding = "utf-8") as f:
-        return f.read().split("\n")
-
-#1.1
-
-def extrair_corpo(linhas):
-    inicio = 0
-    fim = len(linhas)
-    for i , linha in enumerate(linhas):
-        if linha[0,12] == "*** START OF":
+        if linha[0:12] == "*** START OF":
             inicio = i + 1
         if linha[:10] == "*** END OF":
             fim = i
@@ -83,9 +67,9 @@ def top_n(freqs, n):
     for _ in range(min(n ,len(freqs))):
         max_i = None
         for i in copia:
-            if max_i == 0 or copia[i] > copia[max_i]:
+            if max_i is None or copia[i] > copia[max_i]:
                 max_i = i
-        res.append(max_i ,copia[max_i])
+        res.append((max_i ,copia[max_i]))
         del(copia[max_i])#juntar o tuplo à lista resultado e apagar o mais frequente para o caso de ser mais que 1 no n
     return res
 
@@ -128,4 +112,16 @@ def escolher_proxima(sucessores):
         if acumulado >= r:
             return palavra
 
+#2.4
+
+def gerar_frase(modelo, max_tokens = 30):
     
+
+
+def main():
+    print(info(extrair_corpo(ler_linhas("texto.txt"))))
+    print(top_n(contar_frequencias(tokenizar("O gato come.\nO gato dorme.\nO cão dorme.")),2))
+
+
+if __name__ == "__main__":
+    main()
