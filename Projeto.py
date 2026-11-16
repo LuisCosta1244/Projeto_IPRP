@@ -1,6 +1,20 @@
 def ler_linhas(nome):
     with open("nome.txt","r",encoding = "utf-8") as f:
         return f.read().split("\n")
+    
+def extrair_corpo(linhas):
+    inicio = 0
+    fim = len(linhas)
+    for i , linha in enumerate(linhas):
+        if linha[0,12] == "*** START OF":
+            inicio = i + 1
+        if linha[:10] == "*** END OF":
+            fim = i
+    return linhas[inicio:fim]
+
+def ler_linhas(nome):
+    with open("nome.txt","r",encoding = "utf-8") as f:
+        return f.read().split("\n")
 
 #1.1
 
@@ -25,11 +39,27 @@ def info(linhas):
 
 #1.2
 
-
-
-
-
-
+fim = (".", "!", "?", ",")
+def tokenizar(texto):
+    texto = texto.lower() # em minúsculas
+    tokens = [] # lista onde vai guardar os tokens finais
+    palavra = "" # vai acumulando as letras da palavra atual
+    for i in range(len(texto)):
+        if texto[i].isalpha(): # se o carácter atual pertencer ao alfabeto
+            palavra += texto[i] # acrescenta à palavra
+        elif texto[i] in ("-", "'") and palavra != "" and i + 1 < len(texto) and texto[i + 1].isalpha():
+            palavra += texto[i] # adiciona a letra à palavra quando o caracter atual é um hifen ou apostrofe e a palavra não está vazia (para garantir que estes simbolos estão no meio da palavra) e o próximo é uma letra
+        else: # qualquer outro carácter termina a palavra
+            if palavra != "": # limpa a variável e guarda na lista
+                tokens.append(palavra) # adiciona à lista
+                palavra = ""
+            if texto[i] in fim: # se for um ponto, virgula, exclamação, ...
+                if len(tokens) == 0 or tokens[-1] not in fim: # se estiver vazia ou se o último não for um sinal
+                    tokens.append(texto[i]) # adiciona à lista
+    if palavra != "": # se terminar numa letra, guarda a última palavra
+        tokens.append(palavra)
+    
+    return tokens
 
 
 #1.3
@@ -77,16 +107,10 @@ def construir_bigramas(tokens):
 
 #2.2
 
-def probabilidade(modelo,a,b):
-    if a not in modelo:
-        return 0.0
-    sub_dic = modelo[a]
-    if b not in sub_dic:
-        return 0.0
-    vc=0
-    for i in sub_dic:
-        vc += sub_dic.get(i)
-    vb=sub_dic.get(b)
-    return vb/vc
-
-
+def probabilidade(modelo,a,b): # recebe o dict e duas strings
+    if a not in modelo or b not in modelo[a]: # a = palavra
+        return 0.0                            # b = segunda palavra
+    
+    total_sucessores = sum(modelo[a].values()) # extrai apenas os valores
+    
+    return modelo[a][b] / total_sucessores
