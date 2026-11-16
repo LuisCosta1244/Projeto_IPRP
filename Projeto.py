@@ -78,4 +78,15 @@ def construir_bigramas(tokens):
 #2.2
 
 def probabilidade(modelo,a,b):
-    
+    if a not in modelo:
+        return 0.0
+    sub_dic = modelo[a]
+    if b not in sub_dic:
+        return 0.0
+    vc=0
+    for i in sub_dic:
+        vc += sub_dic.get(i)
+    vb=sub_dic.get(b)
+    return vb/vc
+
+
