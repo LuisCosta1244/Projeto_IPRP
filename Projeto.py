@@ -1,3 +1,5 @@
+import random
+
 def ler_linhas(nome):
     with open("nome.txt","r",encoding = "utf-8") as f:
         return f.read().split("\n")
@@ -114,3 +116,16 @@ def probabilidade(modelo,a,b): # recebe o dict e duas strings
     total_sucessores = sum(modelo[a].values()) # extrai apenas os valores
     
     return modelo[a][b] / total_sucessores
+
+#2.3
+
+def escolher_proxima(sucessores):
+    c=0
+    total = sum(sucessores.values())
+    r = random.randint(1,total)
+    for palavra, contagem in sucessores.items():
+        acumulado += contagem
+        if acumulado >= r:
+            return palavra
+
+    
