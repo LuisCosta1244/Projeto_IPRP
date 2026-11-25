@@ -1,16 +1,20 @@
 import random
 
+# Abre o ficheiro de texto e devolve uma lista de strings
+# onde cada elemento é uma linha
 def ler_linhas(nome):
     with open(nome,"r",encoding = "utf-8") as f:
         return f.read().split("\n")
-    
+
+# Procura as marcas Start e End, para ignorar as linhas iniciais e finais
+# devolvendo apenas as linhas do conteúdo
 def extrair_corpo(linhas):
     inicio = 0
     fim = len(linhas)
-    for i , linha in enumerate(linhas):
-        if linha[0:12] == "*** START OF":
-            inicio = i + 1
-        if linha[:10] == "*** END OF":
+    for i, linha in enumerate(linhas):
+        if linha[0:12] == "*** START OF": # se os primeiros 12 caracteres da linha for ...
+            inicio = i + 1           
+        if linha[:10] == "*** END OF": # se os últimos 10 caracteres da linha for ...
             fim = i
     return linhas[inicio:fim]
 
